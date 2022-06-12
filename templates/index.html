@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title>weather</title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"  />
+   </head>
+   <body>
+   <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-around">
+  <a class="navbar-brand" href="/">Weather</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+    <form class="form-inline justify-content-center my-2 my-lg-0" method="post">
+      <input class="form-control mr-sm-2" name="city" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+   <div class="container">
+      <div class="row justify-content-center">
+         {% if data.cityname and data.country_code %}
+         <div class="col-12 col-sm-12 col-md-6 text-center">
+           <div class="p-3 shadow bg-light my-4 border">
+               <div class="bg-white p-2 d-inline-block mb-3 rounded">
+                   <img src="http://openweathermap.org/img/wn/{{data.icon}}@2x.png" />
+               </div>
+               <h1 class="my-2">{{data.temp_cel}}</h1>
+             <h3 class="my-2">{{data.cityname}}</h3>
+             <h5 class="my-2">{{data.country_code}}</h5>
+               <hr>
+               <h5 class="my-2 d-flex justify-content-between mb-1 mb-md-2"><span class="text-muted">Temp (in kelvin) </span> {{data.temp}}</h5>
+               <h5 class="my-2 d-flex justify-content-between mb-1 mb-md-2"><span class="text-muted">Coordinate </span> {{data.lon}} / {{data.lat}}</h5>
+             <h5 class="my-2 d-flex justify-content-between mb-1 mb-md-2"><span class="text-muted">Min / Max</span> {{data.temp_min}} / {{data.temp_max}}</h5>
+               <h5 class="my-2 d-flex justify-content-between mb-1 mb-md-2"><span class="text-muted">Weather Conditions </span> {{data.main}}</h5>
+             <h5 class="my-2 d-flex justify-content-between mb-1 mb-md-2"><span class="text-muted">Visibility </span> {{data.visibility}}</h5>
+             <h5 class="my-2 d-flex justify-content-between mb-1 mb-md-2"><span class="text-muted">Humidity </span> {{data.humidity}}</h5>
+               <hr>
+               <h5 class="my-2 d-flex justify-content-between mb-1 mb-md-2"><span class="text-muted">Sunrise </span> {{data.sunrise}}</h5>
+               <h5 class="my-2 d-flex justify-content-between mb-1 mb-md-2"><span class="text-muted">Sunset </span> {{data.sunset}}</h5>
+               <h5 class="my-2 d-flex justify-content-between mb-1 mb-md-2"><span class="text-muted">Wind Speed </span> {{data.wind_speed}}</h5>
+               <h5 class="my-2 d-flex justify-content-between mb-1 mb-md-2"><span class="text-muted">Wind Degree </span> {{data.wind_deg}}</h5>
+
+
+           </div>
+         </div>
+         {%elif data.error %}
+         <div class="col-12 col-sm-12 col-md-6 text-center">
+            <h3 class="my-4">"{{data.cityname}}" {{data.error}}</h3>
+         </div>
+         {% endif %}
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" ></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+   </body>
+</html>
