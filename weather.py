@@ -14,38 +14,49 @@ def weather():
 			city = 'jaipur'
 
 		api = 'dcb7e9e91cf57bcda6c81f988634ab0d'
+
 		city = city.title()
 		city = re.sub(' +', ' ', city.strip())
 		city_new = city.replace(" ", "+")
+
 		source = urllib.request.urlopen('http://api.openweathermap.org/data/2.5/weather?q=' + city_new + '&appid=' + api).read()
 		list_of_data = json.loads(source)
+
 		temp_cel = list_of_data['main']['temp']
-		temp_min = list_of_data['main']['temp_min']
-		temp_max = list_of_data['main']['temp_max']
 		temp_cel = temp_cel - 273.15
-		temp_min = temp_min - 273.15
-		temp_max = temp_max - 273.15
 		temp_cel = round(temp_cel, 2)
-		temp_min = round(temp_min, 2)
-		temp_max = round(temp_max, 2)
 		temp_cel = f'{temp_cel}\u00B0c'
-		temp_min = f'{temp_min}\u00B0c'
+
+		temp_max = list_of_data['main']['temp_max']
+		temp_max = temp_max - 273.15
+		temp_max = round(temp_max, 2)
 		temp_max = f'{temp_max}\u00B0c'
+
+		temp_min = list_of_data['main']['temp_min']
+		temp_min = temp_min - 273.15
+		temp_min = round(temp_min, 2)
+		temp_min = f'{temp_min}\u00B0c'
+
 		wind_deg = list_of_data['wind']['deg']
 		wind_deg = f'{wind_deg}\u00B0c'
+
 		sunrise = list_of_data['sys']['sunrise']
-		sunset = list_of_data['sys']['sunset']
 		sunrise = datetime.fromtimestamp(sunrise)
 		sunrise = sunrise.strftime("%H:%M")
+
+		sunset = list_of_data['sys']['sunset']
 		sunset = datetime.fromtimestamp(sunset)
 		sunset = sunset.strftime("%H:%M")
+
 		lon = list_of_data['coord']['lon']
 		lon = round(lon, 2)
+
 		lat = list_of_data['coord']['lat']
 		lat = round(lat, 2)
+
 		visibility = list_of_data['visibility']
 		visibility = visibility/100
-		print(visibility)
+
 		data = {
 			"cityname": city,
 			"country_code": str(list_of_data['sys']['country']),
